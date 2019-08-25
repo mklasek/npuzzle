@@ -9,7 +9,7 @@ import sys
 sys.setrecursionlimit(20000)
 
 
-n = 3
+n = 3                           #velikost
 stav0 = State(n, 0, None)       #náhodný počáteční stav
 stav0.print()
 
