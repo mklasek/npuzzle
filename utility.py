@@ -2,6 +2,8 @@ from class_state import *
 from class_list import *
 import math
 
+#heuristická funkce je součet vzdáleností každého "kamene" od místa, kam patří ve vyřešeném 
+#stavu pošťáckou metrikou
 def heur(state):
     if state == None:
         return math.inf
