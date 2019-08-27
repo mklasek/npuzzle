@@ -16,7 +16,7 @@ stav0.print()
 #vyřešitelnost
 ss = solvability(stav0)
 if not ss:
-    print('Unsolvable configuration')
+    print('Nevyřešitelná konfigurace')
     sys.exit()
 
 input()
@@ -36,7 +36,7 @@ opensize = 1
 
 while True:
     if opensize == 0:
-        print('Solution doesn\'t exist')
+        print('Řešení neexistuje')
         break
 
     #nalezení nejlepšího stavu v seznamu Open
@@ -61,7 +61,7 @@ while True:
     Closed.insert(st)
 
     if statecmp(st, cil):
-        print('Solution found')
+        print('Řešení nalezeno')
         break
 
     #expanze stavu
