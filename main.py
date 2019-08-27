@@ -1,33 +1,38 @@
 from class_state import *
 from class_list import *
-from utility import *
+from util import *
+from class_stack import *
 import math
 import copy
-import time
 import sys
 
+#pro náročné úlohy
 sys.setrecursionlimit(20000)
 
 
-n = 3                           #velikost
-stav0 = State(n, 0, None)       #náhodný počáteční stav
+n = 3                                   #rozměr
+stav0 = State(n, 0, None)               #náhodný počáteční stav
+#stav0.array = [[2, 1, 4], [3, 6, 5],[7, 0, 8]]     #manuálně zadaný počáteční stav
+#stav0.array = [[0, 1, 2], [3, 4, 5],[6, 7, 8]]
+
 stav0.print()
 
 #vyřešitelnost
-ss = solvability(stav0)
+ss = solvability(stav0)     #funkce v util.py
 if not ss:
-    print('Nevyřešitelná konfigurace')
+    print('State not solvable')
+    input()
     sys.exit()
 
+print('State solvable')
 input()
 
 
+goal = order(stav0)
 
-cil = order(stav0)
-
-size = 1000 * n**2
+#maximální velikost seznamů open, closed
+size = 1000 * n**2      
 Closed = List(size)
-closedsize = 0
 Open = List(size)
 
 #zapsat počáteční stav do seznamu Open
@@ -35,8 +40,9 @@ Open.insert(stav0)
 opensize = 1   
 
 while True:
+    #je seznam Open prázdný?
     if opensize == 0:
-        print('Řešení neexistuje')
+        print('Solution doesn\'t exist')
         break
 
     #nalezení nejlepšího stavu v seznamu Open
@@ -56,12 +62,14 @@ while True:
         i += 1
 
     st = copy.deepcopy(Open.array[index]) 
+
     Open.remove(st)
     opensize -= 1
+    
     Closed.insert(st)
 
-    if statecmp(st, cil):
-        print('Řešení nalezeno')
+    if statecmp(st, goal):
+        print('Solution found')
         break
 
     #expanze stavu
@@ -93,30 +101,25 @@ while True:
                     opensize += 1
 
 
-    print(opensize)
+    #print(opensize)
 
+input()
 
-print('end')
+#nalezení a vypsání cesty
+path = Stack(st.g)
+while True:
+    st = copy.deepcopy(st.parent)
+    if st.g == 0:
+        print('Path found')
+        break
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
+    index = Closed.find(st)
+    st = copy.deepcopy(Closed.array[index])
+    path.push(st)
+    #print(st.g)
+    st.print()
+    print('\n')
 
 
 
-
-
-
+input()
